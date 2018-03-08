@@ -1,5 +1,6 @@
 package co.untitledkingdom.spacexmvi
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -17,12 +18,13 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private val rocketsAdapter = RocketsAdapter()
 
-    private val mainPresenter: MainPresenter = MainPresenter(MainInteractor())
+    private lateinit var mainPresenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initRecyclerView()
+        mainPresenter = ViewModelProviders.of(this)[MainPresenter::class.java]
     }
 
     override fun onStart() {
