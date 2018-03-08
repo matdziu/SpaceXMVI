@@ -5,7 +5,7 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 
-class MainPresenter(private val mainInteractor: MainInteractor = MainInteractor()) : ViewModel() {
+class MainViewModel(private val mainInteractor: MainInteractor = MainInteractor()) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
     private val stateSubject = BehaviorSubject.create<PartialMainViewState>()

@@ -18,22 +18,22 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private val rocketsAdapter = RocketsAdapter()
 
-    private lateinit var mainPresenter: MainPresenter
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initRecyclerView()
-        mainPresenter = ViewModelProviders.of(this)[MainPresenter::class.java]
+        mainViewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
     }
 
     override fun onStart() {
         super.onStart()
-        mainPresenter.bind(this)
+        mainViewModel.bind(this)
     }
 
     override fun onStop() {
-        mainPresenter.unbind()
+        mainViewModel.unbind()
         super.onStop()
     }
 
