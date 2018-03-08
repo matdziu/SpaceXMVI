@@ -8,9 +8,11 @@ import java.util.concurrent.TimeUnit
 class MainInteractor {
 
     fun fetchRocketList(): Observable<List<Rocket>> {
+        val emitError = false
         return Observable
                 .timer(2000, TimeUnit.MILLISECONDS)
                 .map {
+                    if (emitError) throw Exception()
                     listOf(
                             Rocket("Falcon 1", "http://www.spacex.com/files//assets/img/Liftoff_south_FULL_QQ9L7636-480x723.jpg"),
                             Rocket("Falcon 1e", "http://michaelgr.wordpress.com/files/2008/09/spacex-falcon1.jpg"),

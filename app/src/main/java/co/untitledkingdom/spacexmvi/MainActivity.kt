@@ -14,10 +14,15 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private val rocketsAdapter = RocketsAdapter()
 
+    private val mainPresenter: MainPresenter = MainPresenter(MainInteractor())
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initRecyclerView()
+
+        mainPresenter.bind(this)
+        mainPresenter.getRocketList()
     }
 
     private fun initRecyclerView() {
