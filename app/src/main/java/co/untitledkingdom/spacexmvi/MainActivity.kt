@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import co.untitledkingdom.spacexmvi.list.RocketsAdapter
 import co.untitledkingdom.spacexmvi.models.Rocket
+import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.errorTextView
 import kotlinx.android.synthetic.main.activity_main.progressBar
 import kotlinx.android.synthetic.main.activity_main.rocketsRecyclerView
@@ -65,5 +67,9 @@ class MainActivity : AppCompatActivity(), MainView {
             showError(error)
             showRocketList(rocketList)
         }
+    }
+
+    override fun emitButtonClick(): Observable<Boolean> {
+        return RxView.clicks(showMeRocketsButton).map { true }
     }
 }
