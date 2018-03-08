@@ -13,7 +13,7 @@ class MainPresenter(private val mainInteractor: MainInteractor) {
         mainInteractor.fetchRocketList().subscribe(
                 {
                     mainView.showProgressBar(false)
-                    mainView.setRocketList(it)
+                    mainView.showRocketList(it)
                 },
                 {
                     mainView.showProgressBar(false)

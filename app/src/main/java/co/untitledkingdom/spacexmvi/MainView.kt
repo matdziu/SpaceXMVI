@@ -8,5 +8,5 @@ interface MainView {
 
     fun showError(show: Boolean)
 
-    fun setRocketList(rocketList: List<Rocket>)
+    fun showRocketList(rocketList: List<Rocket>)
 }

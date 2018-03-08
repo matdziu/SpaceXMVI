@@ -9,6 +9,7 @@ import co.untitledkingdom.spacexmvi.models.Rocket
 import kotlinx.android.synthetic.main.activity_main.errorTextView
 import kotlinx.android.synthetic.main.activity_main.progressBar
 import kotlinx.android.synthetic.main.activity_main.rocketsRecyclerView
+import kotlinx.android.synthetic.main.activity_main.showMeRocketsButton
 
 class MainActivity : AppCompatActivity(), MainView {
 
@@ -22,7 +23,10 @@ class MainActivity : AppCompatActivity(), MainView {
         initRecyclerView()
 
         mainPresenter.bind(this)
-        mainPresenter.getRocketList()
+
+        showMeRocketsButton.setOnClickListener {
+            mainPresenter.getRocketList()
+        }
     }
 
     private fun initRecyclerView() {
@@ -33,9 +37,12 @@ class MainActivity : AppCompatActivity(), MainView {
     override fun showProgressBar(show: Boolean) {
         if (show) {
             rocketsRecyclerView.visibility = View.GONE
+            showMeRocketsButton.visibility = View.GONE
+            errorTextView.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
         } else {
             rocketsRecyclerView.visibility = View.VISIBLE
+            showMeRocketsButton.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
         }
     }
@@ -43,14 +50,17 @@ class MainActivity : AppCompatActivity(), MainView {
     override fun showError(show: Boolean) {
         if (show) {
             rocketsRecyclerView.visibility = View.GONE
+            showMeRocketsButton.visibility = View.VISIBLE
             errorTextView.visibility = View.VISIBLE
         } else {
             rocketsRecyclerView.visibility = View.VISIBLE
+            showMeRocketsButton.visibility = View.GONE
             errorTextView.visibility = View.GONE
         }
     }
 
-    override fun setRocketList(rocketList: List<Rocket>) {
+    override fun showRocketList(rocketList: List<Rocket>) {
         rocketsAdapter.setRocketList(rocketList)
+        showMeRocketsButton.visibility = View.GONE
     }
 }
