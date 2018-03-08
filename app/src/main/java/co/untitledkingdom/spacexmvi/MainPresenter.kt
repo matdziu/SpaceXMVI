@@ -1,15 +1,18 @@
 package co.untitledkingdom.spacexmvi
 
+import io.reactivex.Observable
+
 class MainPresenter(private val mainInteractor: MainInteractor) {
 
     fun bind(mainView: MainView) {
         val buttonClickObservable = mainView.emitButtonClick()
                 .flatMap { mainInteractor.fetchRocketList().startWith(PartialMainViewState.ProgressState()) }
 
-        buttonClickObservable.subscribe { mainView.render(reduce(it)) }
+        val mergedIntentsObservable = Observable.merge(listOf(buttonClickObservable))
+        mergedIntentsObservable.scan(MainViewState(), this::reduce).subscribe { mainView.render(it) }
     }
 
-    private fun reduce(partialState: PartialMainViewState): MainViewState {
+    private fun reduce(previousState: MainViewState, partialState: PartialMainViewState): MainViewState {
         return when (partialState) {
             is PartialMainViewState.ProgressState -> MainViewState(progress = true)
             is PartialMainViewState.ErrorState -> MainViewState(error = true)
