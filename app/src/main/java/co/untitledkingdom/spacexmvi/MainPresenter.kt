@@ -6,4 +6,12 @@ class MainPresenter(private val mainInteractor: MainInteractor) {
         val buttonClickObservable = mainView.emitButtonClick()
                 .flatMap { mainInteractor.fetchRocketList() }
     }
+
+    private fun reduce(partialState: PartialMainViewState): MainViewState {
+        return when (partialState) {
+            is PartialMainViewState.ProgressState -> MainViewState(progress = true)
+            is PartialMainViewState.ErrorState -> MainViewState(error = true)
+            is PartialMainViewState.ListFetchedState -> MainViewState(rocketList = partialState.rocketList)
+        }
+    }
 }
