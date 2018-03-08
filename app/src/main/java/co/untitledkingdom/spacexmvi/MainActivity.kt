@@ -25,10 +25,6 @@ class MainActivity : AppCompatActivity(), MainView {
         initRecyclerView()
 
         mainPresenter.bind(this)
-
-        showMeRocketsButton.setOnClickListener {
-            mainPresenter.getRocketList()
-        }
     }
 
     private fun initRecyclerView() {

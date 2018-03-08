@@ -4,7 +4,9 @@ class MainPresenter(private val mainInteractor: MainInteractor) {
 
     fun bind(mainView: MainView) {
         val buttonClickObservable = mainView.emitButtonClick()
-                .flatMap { mainInteractor.fetchRocketList() }
+                .flatMap { mainInteractor.fetchRocketList().startWith(PartialMainViewState.ProgressState()) }
+
+        buttonClickObservable.subscribe { mainView.render(reduce(it)) }
     }
 
     private fun reduce(partialState: PartialMainViewState): MainViewState {
