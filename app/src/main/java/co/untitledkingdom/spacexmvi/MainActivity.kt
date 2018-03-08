@@ -37,12 +37,11 @@ class MainActivity : AppCompatActivity(), MainView {
     override fun showProgressBar(show: Boolean) {
         if (show) {
             rocketsRecyclerView.visibility = View.GONE
-            showMeRocketsButton.visibility = View.GONE
             errorTextView.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
         } else {
             rocketsRecyclerView.visibility = View.VISIBLE
-            showMeRocketsButton.visibility = View.VISIBLE
+            errorTextView.visibility = View.GONE
             progressBar.visibility = View.GONE
         }
     }
@@ -50,17 +49,13 @@ class MainActivity : AppCompatActivity(), MainView {
     override fun showError(show: Boolean) {
         if (show) {
             rocketsRecyclerView.visibility = View.GONE
-            showMeRocketsButton.visibility = View.VISIBLE
             errorTextView.visibility = View.VISIBLE
         } else {
-            rocketsRecyclerView.visibility = View.VISIBLE
-            showMeRocketsButton.visibility = View.GONE
             errorTextView.visibility = View.GONE
         }
     }
 
     override fun showRocketList(rocketList: List<Rocket>) {
         rocketsAdapter.setRocketList(rocketList)
-        showMeRocketsButton.visibility = View.GONE
     }
 }
