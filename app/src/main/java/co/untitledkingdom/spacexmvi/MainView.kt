@@ -9,4 +9,6 @@ interface MainView {
     fun showError(show: Boolean)
 
     fun showRocketList(rocketList: List<Rocket>)
+
+    fun render(mainViewState: MainViewState)
 }

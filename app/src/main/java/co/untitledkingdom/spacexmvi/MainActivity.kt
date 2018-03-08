@@ -58,4 +58,12 @@ class MainActivity : AppCompatActivity(), MainView {
     override fun showRocketList(rocketList: List<Rocket>) {
         rocketsAdapter.setRocketList(rocketList)
     }
+
+    override fun render(mainViewState: MainViewState) {
+        with(mainViewState) {
+            showProgressBar(progress)
+            showError(error)
+            showRocketList(rocketList)
+        }
+    }
 }
