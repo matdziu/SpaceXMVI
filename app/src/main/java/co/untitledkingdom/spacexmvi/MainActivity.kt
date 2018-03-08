@@ -23,8 +23,16 @@ class MainActivity : AppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initRecyclerView()
+    }
 
+    override fun onStart() {
+        super.onStart()
         mainPresenter.bind(this)
+    }
+
+    override fun onStop() {
+        mainPresenter.unbind()
+        super.onStop()
     }
 
     private fun initRecyclerView() {

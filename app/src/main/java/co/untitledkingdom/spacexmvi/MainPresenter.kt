@@ -2,16 +2,18 @@ package co.untitledkingdom.spacexmvi
 
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.BehaviorSubject
 
 class MainPresenter(private val mainInteractor: MainInteractor) {
 
     private val compositeDisposable = CompositeDisposable()
+    private val stateSubject = BehaviorSubject.create<PartialMainViewState>()
 
     fun bind(mainView: MainView) {
         val buttonClickObservable = mainView.emitButtonClick()
                 .flatMap { mainInteractor.fetchRocketList().startWith(PartialMainViewState.ProgressState()) }
 
-        val mergedIntentsObservable = Observable.merge(listOf(buttonClickObservable))
+        val mergedIntentsObservable = Observable.merge(listOf(buttonClickObservable)).subscribeWith(stateSubject)
         compositeDisposable.add(
                 mergedIntentsObservable.scan(MainViewState(), this::reduce).subscribe { mainView.render(it) }
         )
