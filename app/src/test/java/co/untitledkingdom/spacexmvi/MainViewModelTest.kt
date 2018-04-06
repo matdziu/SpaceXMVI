@@ -35,6 +35,7 @@ class MainViewModelTest {
                 MainViewState(),
                 MainViewState(progress = true),
                 MainViewState(rocketList = fetchedRocketList),
+                MainViewState(),
                 MainViewState(rocketList = fetchedRocketList)
         )
     }
@@ -57,6 +58,7 @@ class MainViewModelTest {
                 MainViewState(),
                 MainViewState(progress = true),
                 MainViewState(error = true),
+                MainViewState(),
                 MainViewState(error = true)
         )
     }
